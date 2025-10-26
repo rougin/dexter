@@ -215,7 +215,9 @@ class Testcase extends Legacy
      */
     protected function shutdown()
     {
-        $this->capsule->getConnection()->disconnect();
+        // PHP 5.3 - "disconnect" is an undefined method ---
+        // $this->capsule->getConnection()->disconnect();
+        // -------------------------------------------------
     }
 
     /**
