@@ -3,6 +3,7 @@
 namespace Rougin\Dexter;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Contracts\ArrayableInterface;
 
 /**
  * @package Dexter
@@ -61,7 +62,9 @@ class Result
 
         foreach ($this->items() as $item)
         {
-            if (! $item instanceof Arrayable)
+            // PHP 5.3 - Use "ArrayableInterface" if available -----------------------
+            if (! $item instanceof Arrayable && ! $item instanceof ArrayableInterface)
+            // -----------------------------------------------------------------------
             {
                 $items[] = $item;
 
