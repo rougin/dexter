@@ -2,8 +2,8 @@
 
 $root = __DIR__ . '/../Phinx';
 
-$scripts = array($root . '/Scripts');
-$seeders = array($root . '/Seeders');
+$scripts = $root . '/Scripts';
+$seeders = $root . '/Seeders';
 
 $test = array();
 $test['adapter'] = 'sqlite';

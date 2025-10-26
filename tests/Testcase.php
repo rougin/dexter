@@ -83,12 +83,17 @@ class Testcase extends Legacy
     }
 
     /**
-     * @param string[] $paths
+     * @param string|string[] $paths
      *
      * @return integer
      */
     protected function getLastVersion($paths)
     {
+        if (is_string($paths))
+        {
+            $paths = array($paths);
+        }
+
         $version = 0;
 
         foreach ($paths as $path)
