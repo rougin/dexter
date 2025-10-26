@@ -4,8 +4,9 @@ namespace Rougin\Dexter;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use LegacyPHPUnit\TestCase as Legacy;
-use Phinx\Migration\Manager;
 use Rougin\Dexter\Fixture\Models\User;
+use Rougin\Slytherin\Container\Container;
+use Rougin\Slytherin\Container\ReflectionContainer;
 use Rougin\Slytherin\Http\ServerRequest;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
@@ -172,6 +173,8 @@ class Testcase extends Legacy
      */
     protected function setPhinx()
     {
+        $app = new Container;
+
         // Prepare the PDO to the configuration file ---------
         $data = require __DIR__ . '/Fixture/Config/Phinx.php';
 
@@ -180,13 +183,25 @@ class Testcase extends Legacy
         $data['environments']['test']['connection'] = $pdo;
 
         $config = new \Phinx\Config\Config($data);
+
+        $app->set('Phinx\Config\ConfigInterface', $config);
         // ---------------------------------------------------
 
-        $input = new ArrayInput(array());
+        // Prepare the default Input and Output classes -------------
+        $input = 'Symfony\Component\Console\Input\InputInterface';
+        $app->set($input, new ArrayInput(array()));
 
-        $output = new NullOutput;
+        $output = 'Symfony\Component\Console\Output\OutputInterface';
+        $app->set($output, new NullOutput);
+        // ----------------------------------------------------------
 
-        return new Manager($config, $input, $output);
+        // PHP 5.3 - Use "Reflection API" for "Manager" as ---
+        // it has different arguments in "v0.6.0" onwards ----
+        $reflect = new ReflectionContainer($app);
+
+        /** @var \Phinx\Migration\Manager */
+        return $reflect->get('Phinx\Migration\Manager');
+        // ---------------------------------------------------
     }
 
     /**
