@@ -145,7 +145,9 @@ class DepotTest extends Testcase
     protected function doSetUp()
     {
         $this->startUp();
+
         $this->migrate();
+
         $this->hydrate();
 
         $depot = new UserDepot(new User);
@@ -159,6 +161,7 @@ class DepotTest extends Testcase
     protected function doTearDown()
     {
         $this->rollback();
+
         $this->shutdown();
     }
 }

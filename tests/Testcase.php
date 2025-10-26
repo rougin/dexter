@@ -2,9 +2,8 @@
 
 namespace Rougin\Dexter;
 
-use LegacyPHPUnit\TestCase as Legacy;
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Phinx\Config\Config;
+use LegacyPHPUnit\TestCase as Legacy;
 use Phinx\Migration\Manager;
 use Rougin\Dexter\Fixture\Models\User;
 use Rougin\Slytherin\Http\ServerRequest;
@@ -22,38 +21,6 @@ class Testcase extends Legacy
      * @var \Illuminate\Database\Capsule\Manager
      */
     protected $capsule;
-
-    /**
-     * @param array<string, mixed> $data
-     * @param boolean              $parsed
-     *
-     * @return \Rougin\Slytherin\Http\ServerRequest
-     */
-    protected function withHttp($data = array(), $parsed = false)
-    {
-        $server = array();
-
-        $server['REQUEST_METHOD'] = 'GET';
-        $server['REQUEST_URI'] = '/';
-        $server['SERVER_NAME'] = 'localhost';
-        $server['SERVER_PORT'] = '8000';
-
-        $request = new ServerRequest($server);
-
-        if ($parsed)
-        {
-            $request = $request->withParsedBody($data);
-        }
-        else
-        {
-            /** @var array<string, string> */
-            $params = $data;
-
-            $request = $request->withQueryParams($params);
-        }
-
-        return $request;
-    }
 
     /**
      * @param string $pattern
@@ -115,14 +82,12 @@ class Testcase extends Legacy
     }
 
     /**
+     * @param string[] $paths
+     *
      * @return integer
      */
-    protected function getLastVersion()
+    protected function getLastVersion($paths)
     {
-        $phinx = $this->setPhinx();
-
-        $paths = $phinx->getConfig()->getMigrationPaths();
-
         $version = 0;
 
         foreach ($paths as $path)
@@ -181,12 +146,16 @@ class Testcase extends Legacy
      */
     protected function migrate()
     {
+        $phinx = $this->setPhinx();
+
         // Get the last version (e.g., "20241213094622") ---
-        $version = $this->getLastVersion();
+        $paths = $phinx->getConfig()->getMigrationPaths();
+
+        $version = $this->getLastVersion($paths);
         // -------------------------------------------------
 
         // Run the migration up to the specified version ---
-        $this->setPhinx()->migrate('test', $version);
+        $phinx->migrate('test', $version);
         // -------------------------------------------------
     }
 
@@ -203,15 +172,15 @@ class Testcase extends Legacy
      */
     protected function setPhinx()
     {
-        // Prepare the PDO to the configuration file ------
-        $data = require __DIR__ . '/Fixture/phinx.php';
+        // Prepare the PDO to the configuration file ---------
+        $data = require __DIR__ . '/Fixture/Config/Phinx.php';
 
         $pdo = $this->capsule->getConnection()->getPdo();
 
         $data['environments']['test']['connection'] = $pdo;
 
-        $config = new Config($data);
-        // ------------------------------------------------
+        $config = new \Phinx\Config\Config($data);
+        // ---------------------------------------------------
 
         $input = new ArrayInput(array());
 
@@ -245,5 +214,33 @@ class Testcase extends Legacy
         $capsule->bootEloquent();
 
         $this->capsule = $capsule;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @param boolean              $parsed
+     *
+     * @return \Rougin\Slytherin\Http\ServerRequest
+     */
+    protected function withHttp($data = array(), $parsed = false)
+    {
+        $server = array();
+
+        $server['REQUEST_METHOD'] = 'GET';
+        $server['REQUEST_URI'] = '/';
+        $server['SERVER_NAME'] = 'localhost';
+        $server['SERVER_PORT'] = '8000';
+
+        $request = new ServerRequest($server);
+
+        if ($parsed)
+        {
+            return $request->withParsedBody($data);
+        }
+
+        /** @var array<string, string> */
+        $params = $data;
+
+        return $request->withQueryParams($params);
     }
 }
