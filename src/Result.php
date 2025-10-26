@@ -62,16 +62,23 @@ class Result
 
         foreach ($this->items() as $item)
         {
-            // PHP 5.3 - Use "ArrayableInterface" if available -----------------------
-            if (! $item instanceof Arrayable && ! $item instanceof ArrayableInterface)
-            // -----------------------------------------------------------------------
+            if ($item instanceof Arrayable)
             {
-                $items[] = $item;
+                $items[] = $item->toArray();
 
                 continue;
             }
 
-            $items[] = $item->toArray();
+            // PHP 5.3 - Use "ArrayableInterface" if available ---
+            if ($item instanceof ArrayableInterface)
+            {
+                $items[] = $item->toArray();
+
+                continue;
+            }
+            // ---------------------------------------------------
+
+            $items[] = $item;
         }
 
         return $items;
