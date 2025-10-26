@@ -110,7 +110,7 @@ class DepotTest extends Testcase
      */
     public function test_items_by_offset()
     {
-        $expect = 'Dexter';
+        $expect = 'Dexterity';
 
         $depot = new ResuDepot(new User);
 
