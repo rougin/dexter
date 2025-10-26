@@ -29,7 +29,7 @@ class Testcase extends Legacy
      *
      * @return void
      */
-    public function assertRegex($pattern, $string)
+    public function doAssertRegex($pattern, $string)
     {
         $method = 'assertMatchesRegularExpression';
 
@@ -150,7 +150,13 @@ class Testcase extends Legacy
         $phinx = $this->setPhinx();
 
         // Get the last version (e.g., "20241213094622") ---
-        $paths = $phinx->getConfig()->getMigrationPaths();
+        // PHP 5.3 - Get paths directly instead ---
+        $folder = __DIR__ . '/Fixture/Config';
+
+        $config = require $folder . '/Phinx.php';
+
+        $paths = $config['paths']['migrations'];
+        // ----------------------------------------
 
         $version = $this->getLastVersion($paths);
         // -------------------------------------------------
