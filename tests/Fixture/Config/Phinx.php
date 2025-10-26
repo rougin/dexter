@@ -2,8 +2,11 @@
 
 $root = __DIR__ . '/../Phinx';
 
+// PHP 5.3 - No support yet for multiple ---
+// database migration and seeder folders ---
 $scripts = $root . '/Scripts';
 $seeders = $root . '/Seeders';
+// -----------------------------------------
 
 $test = array();
 $test['adapter'] = 'sqlite';
