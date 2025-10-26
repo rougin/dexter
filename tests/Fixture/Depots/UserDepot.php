@@ -6,6 +6,7 @@ use Rougin\Dexter\Depots\EloquentDepot;
 use Rougin\Dexter\Fixture\Models\User;
 
 /**
+ * @method \Rougin\Dexter\Fixture\Models\User create(array<string, mixed> $data)
  * @method \Rougin\Dexter\Fixture\Models\User find(integer $id)
  *
  * @package Dexter

@@ -23,45 +23,35 @@ class DepotTest extends Testcase
     /**
      * @return void
      */
-    public function doSetUp()
-    {
-        $this->loadEloquent();
-
-        $this->depot = new UserDepot(new User);
-    }
-
-    /**
-     * @depends test_items_by_offset
-     *
-     * @return integer
-     */
     public function test_create_new_item()
     {
-        $payload = array('name' => 'Sample');
-        $payload['email'] = 'smpl@roug.in';
+        $load = array('name' => 'Sample');
+        $load['email'] = 'smpl@roug.in';
 
-        /** @var \Rougin\Dexter\Fixture\Models\User */
-        $result = $this->depot->create($payload);
+        $result = $this->depot->create($load);
 
-        $expect = $payload['name'];
+        $expect = $load['name'];
 
         $actual = $result->name;
 
         $this->assertEquals($expect, $actual);
-
-        return $result->id;
     }
 
     /**
-     * @depends test_update_item
-     *
-     * @param integer $id
-     *
      * @return void
      */
-    public function test_delete_item($id)
+    public function test_delete_item()
     {
-        $this->assertTrue($this->depot->delete($id));
+        // Create a new user ---------------
+        $load = array('name' => 'Sample');
+        $load['email'] = 'smpl@roug.in';
+
+        $item = $this->depot->create($load);
+        // ---------------------------------
+
+        $actual = $this->depot->delete($item->id);
+
+        $this->assertTrue($actual);
     }
 
     /**
@@ -125,27 +115,50 @@ class DepotTest extends Testcase
     }
 
     /**
-     * @depends test_create_new_item
-     *
-     * @param integer $id
-     *
-     * @return integer
+     * @return void
      */
-    public function test_update_item($id)
+    public function test_update_item()
     {
-        $payload = array('name' => 'Elpmas');
+        // Create a new user ---------------
+        $load = array('name' => 'Sample');
+        $load['email'] = 'smpl@roug.in';
 
-        $this->depot->update($id, $payload);
+        $item = $this->depot->create($load);
+        // ---------------------------------
 
-        /** @var array<string, mixed> */
-        $result = $this->depot->find($id);
+        $load = array('name' => 'Elpmas');
 
-        $expect = $payload['name'];
+        $this->depot->update($item->id, $load);
 
-        $actual = $result['name'];
+        $item = $this->depot->find($item->id);
+
+        $expect = $load['name'];
+
+        $actual = $item->name;
 
         $this->assertEquals($expect, $actual);
+    }
 
-        return $id;
+    /**
+     * @return void
+     */
+    protected function doSetUp()
+    {
+        $this->startUp();
+        $this->migrate();
+        $this->hydrate();
+
+        $depot = new UserDepot(new User);
+
+        $this->depot = $depot;
+    }
+
+    /**
+     * @return void
+     */
+    protected function doTearDown()
+    {
+        $this->rollback();
+        $this->shutdown();
     }
 }

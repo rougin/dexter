@@ -23,7 +23,8 @@
   "require-dev":
   {
     "phpunit/phpunit": "*",
-    "sanmai/phpunit-legacy-adapter": "*"
+    "sanmai/phpunit-legacy-adapter": "*",
+    "robmorgan/phinx": "~0.1"
   },
   "autoload":
   {

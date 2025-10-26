@@ -5,21 +5,20 @@ $root = __DIR__ . '/Phinx';
 $scripts = $root . '/Scripts';
 $seeders = $root . '/Seeders';
 
-$phinx = array('paths' => array());
-$phinx['paths']['migrations'] = $scripts;
-$phinx['paths']['seeds'] = $seeders;
-$phinx['version_order'] = 'creation';
-
 $test = array();
 $test['adapter'] = 'sqlite';
 $test['name'] = __DIR__ . '/Storage/dxtr';
 $test['suffix'] = '.s3db';
 
-$envs = array();
-$envs['default_migration_table'] = 'phinxlog';
-$envs['default_environment'] = 'testing';
-$envs['testing'] = $test;
+$items = array();
+$items['default_migration_table'] = 'phinxlog';
+$items['default_environment'] = 'testing';
+$items['testing'] = $test;
 
-$phinx['environments'] = $envs;
+$env = array('paths' => array());
+$env['environments'] = $items;
+$env['paths']['migrations'] = $scripts;
+$env['paths']['seeds'] = $seeders;
+$env['version_order'] = 'creation';
 
-return $phinx;
+return $env;

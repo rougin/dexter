@@ -20,23 +20,15 @@ class RouteTest extends Testcase
     /**
      * @return void
      */
-    public function doSetUp()
-    {
-        $this->route = new Tset;
-    }
-
-    /**
-     * @return void
-     */
     public function test_delete_error()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $text = 'The "setDeleteData" method must be overwriten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
-        $this->route->delete(1, $request);
+        $this->route->delete(1, $http);
     }
 
     /**
@@ -44,11 +36,11 @@ class RouteTest extends Testcase
      */
     public function test_delete_invalid()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $this->route->setAsInvalid();
 
-        $response = $this->route->delete(1, $request);
+        $response = $this->route->delete(1, $http);
 
         $expected = 404;
 
@@ -62,13 +54,13 @@ class RouteTest extends Testcase
      */
     public function test_index_error()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $text = 'The "setIndexData" method must be overwriten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
-        $this->route->index($request);
+        $this->route->index($http);
     }
 
     /**
@@ -76,11 +68,11 @@ class RouteTest extends Testcase
      */
     public function test_index_invalid()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $this->route->setAsInvalid();
 
-        $response = $this->route->index($request);
+        $response = $this->route->index($http);
 
         $expected = 422;
 
@@ -94,13 +86,13 @@ class RouteTest extends Testcase
      */
     public function test_show_error()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $text = 'The "setShowData" method must be overwriten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
-        $this->route->show(1, $request);
+        $this->route->show(1, $http);
     }
 
     /**
@@ -108,11 +100,11 @@ class RouteTest extends Testcase
      */
     public function test_show_invalid()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $this->route->setAsInvalid();
 
-        $response = $this->route->show(1, $request);
+        $response = $this->route->show(1, $http);
 
         $expected = 404;
 
@@ -126,13 +118,13 @@ class RouteTest extends Testcase
      */
     public function test_store_error()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $text = 'The "setStoreData" method must be overwriten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
-        $this->route->store($request);
+        $this->route->store($http);
     }
 
     /**
@@ -140,11 +132,11 @@ class RouteTest extends Testcase
      */
     public function test_store_invalid()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $this->route->setAsInvalid();
 
-        $response = $this->route->store($request);
+        $response = $this->route->store($http);
 
         $expected = 422;
 
@@ -158,13 +150,13 @@ class RouteTest extends Testcase
      */
     public function test_update_error()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $text = 'The "setUpdateData" method must be overwriten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
-        $this->route->update(1, $request);
+        $this->route->update(1, $http);
     }
 
     /**
@@ -172,16 +164,24 @@ class RouteTest extends Testcase
      */
     public function test_update_invalid()
     {
-        $request = $this->setRequest();
+        $http = $this->withHttp();
 
         $this->route->setAsInvalid();
 
-        $response = $this->route->update(1, $request);
+        $response = $this->route->update(1, $http);
 
         $expected = 422;
 
         $actual = $response->getStatusCode();
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    protected function doSetUp()
+    {
+        $this->route = new Tset;
     }
 }

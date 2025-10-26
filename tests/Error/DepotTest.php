@@ -21,14 +21,6 @@ class DepotTest extends Testcase
     /**
      * @return void
      */
-    public function doSetUp()
-    {
-        $this->depot = new Depot;
-    }
-
-    /**
-     * @return void
-     */
     public function test_create_error()
     {
         $text = 'The "create" method must be overwriten in the concrete class.';
@@ -126,5 +118,13 @@ class DepotTest extends Testcase
         $this->doExpectExceptionMessage($text);
 
         $this->depot->update(1, array());
+    }
+
+    /**
+     * @return void
+     */
+    protected function doSetUp()
+    {
+        $this->depot = new Depot;
     }
 }
