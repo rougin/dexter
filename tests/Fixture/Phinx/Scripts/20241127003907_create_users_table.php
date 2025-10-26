@@ -3,7 +3,7 @@
 use Phinx\Migration\AbstractMigration;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */

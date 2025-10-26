@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="vendor/autoload.php" colors="true">
   <testsuites>
-    <testsuite name="Dexterity Test Suite">
+    <testsuite name="Dexter Test Suite">
       <directory>tests</directory>
     </testsuite>
   </testsuites>

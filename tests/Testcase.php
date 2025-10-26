@@ -1,13 +1,13 @@
 <?php
 
-namespace Rougin\Dexterity;
+namespace Rougin\Dexter;
 
 use Illuminate\Database\Capsule\Manager;
 use LegacyPHPUnit\TestCase as Legacy;
 use Rougin\Slytherin\Http\ServerRequest;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */

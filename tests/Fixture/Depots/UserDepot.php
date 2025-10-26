@@ -1,21 +1,21 @@
 <?php
 
-namespace Rougin\Dexterity\Fixture\Depots;
+namespace Rougin\Dexter\Fixture\Depots;
 
-use Rougin\Dexterity\Depots\EloquentDepot;
-use Rougin\Dexterity\Fixture\Models\User;
+use Rougin\Dexter\Depots\EloquentDepot;
+use Rougin\Dexter\Fixture\Models\User;
 
 /**
- * @method \Rougin\Dexterity\Fixture\Models\User find(integer $id)
+ * @method \Rougin\Dexter\Fixture\Models\User find(integer $id)
  *
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class UserDepot extends EloquentDepot
 {
     /**
-     * @param \Rougin\Dexterity\Fixture\Models\User $user
+     * @param \Rougin\Dexter\Fixture\Models\User $user
      */
     public function __construct(User $user)
     {
@@ -23,7 +23,7 @@ class UserDepot extends EloquentDepot
     }
 
     /**
-     * @param \Rougin\Dexterity\Fixture\Models\User $row
+     * @param \Rougin\Dexter\Fixture\Models\User $row
      *
      * @return array<string, mixed>
      */

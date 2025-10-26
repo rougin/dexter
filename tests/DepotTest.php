@@ -1,22 +1,22 @@
 <?php
 
-namespace Rougin\Dexterity;
+namespace Rougin\Dexter;
 
-use Rougin\Dexterity\Fixture\Depots\ResuDepot;
-use Rougin\Dexterity\Fixture\Depots\RoleDepot;
-use Rougin\Dexterity\Fixture\Depots\UserDepot;
-use Rougin\Dexterity\Fixture\Models\Role;
-use Rougin\Dexterity\Fixture\Models\User;
+use Rougin\Dexter\Fixture\Depots\ResuDepot;
+use Rougin\Dexter\Fixture\Depots\RoleDepot;
+use Rougin\Dexter\Fixture\Depots\UserDepot;
+use Rougin\Dexter\Fixture\Models\Role;
+use Rougin\Dexter\Fixture\Models\User;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class DepotTest extends Testcase
 {
     /**
-     * @var \Rougin\Dexterity\Fixture\Depots\UserDepot
+     * @var \Rougin\Dexter\Fixture\Depots\UserDepot
      */
     protected $depot;
 
@@ -40,7 +40,7 @@ class DepotTest extends Testcase
         $payload = array('name' => 'Sample');
         $payload['email'] = 'smpl@roug.in';
 
-        /** @var \Rougin\Dexterity\Fixture\Models\User */
+        /** @var \Rougin\Dexter\Fixture\Models\User */
         $result = $this->depot->create($payload);
 
         $expect = $payload['name'];
@@ -110,7 +110,7 @@ class DepotTest extends Testcase
      */
     public function test_items_by_offset()
     {
-        $expect = 'Dexterity';
+        $expect = 'Dexter';
 
         $depot = new ResuDepot(new User);
 

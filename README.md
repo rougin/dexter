@@ -1,4 +1,4 @@
-# Dexterity
+# Dexter
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]][link-license]
@@ -6,14 +6,14 @@
 [![Coverage Status][ico-coverage]][link-coverage]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-`Dexterity` is a utility PHP package that provides extensible PHP classes for handling [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete). It can also create HTTP routes that conforms to the [PSR-07](https://www.php-fig.org/psr/psr-7/) standard.
+`Dexter` is a utility PHP package that provides extensible PHP classes for handling [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete). It can also create HTTP routes that conforms to the [PSR-07](https://www.php-fig.org/psr/psr-7/) standard.
 
 ## Installation
 
-Install the `Dexterity` package via [Composer](https://getcomposer.org/):
+Install the `Dexter` package via [Composer](https://getcomposer.org/):
 
 ``` bash
-$ composer require rougin/dexterity
+$ composer require rougin/dexter
 ```
 
 ## Using `Depot`
@@ -23,7 +23,7 @@ The `Depot` class is a special PHP class which provides methods related to CRUD 
 ``` php
 namespace Acme\Depots;
 
-use Rougin\Dexterity\Depot;
+use Rougin\Dexter\Depot;
 
 class UserDepot extends Depot
 {
@@ -62,7 +62,7 @@ If the specified method is being called, its logic must be defined from the `Dep
 namespace Acme\Depots;
 
 use Acme\Sample\UserFactory;
-use Rougin\Dexterity\Depot;
+use Rougin\Dexter\Depot;
 
 class UserDepot extends Depot
 {
@@ -105,7 +105,7 @@ namespace Acme\Depots;
 
 use Acme\Sample\UserDeleter;
 use Acme\Sample\UserReader;
-use Rougin\Dexterity\Depot;
+use Rougin\Dexter\Depot;
 
 class UserDepot extends Depot
 {
@@ -160,7 +160,7 @@ To use the `find` method, kindly write its logic in the `findRow` method:
 namespace Acme\Depots;
 
 use Acme\Sample\UserReader;
-use Rougin\Dexterity\Depot;
+use Rougin\Dexter\Depot;
 
 class UserDepot extends Depot
 {
@@ -201,7 +201,7 @@ use Acme\Depots\UserDepot;
 
 $depot = new UserDepot;
 
-/** @var \Rougin\Dexterity\Result */
+/** @var \Rougin\Dexter\Result */
 $item = $depot->get(1, 10);
 ```
 
@@ -211,7 +211,7 @@ To use the `get` method, the methods `getItems` and `getTotal` must be defined:
 namespace Acme\Depots;
 
 use Acme\Sample\UserReader;
-use Rougin\Dexterity\Depot;
+use Rougin\Dexter\Depot;
 
 class UserDepot extends Depot
 {
@@ -248,7 +248,7 @@ If the logic requires an offset instead of a page number, the `getOffset` method
 namespace Acme\Depots;
 
 use Acme\Sample\UserReader;
-use Rougin\Dexterity\Depot;
+use Rougin\Dexter\Depot;
 
 class UserDepot extends Depot
 {
@@ -282,7 +282,7 @@ use Acme\Depots\UserDepot;
 
 $depot = new UserDepot;
 
-/** @var \Rougin\Dexterity\Result */
+/** @var \Rougin\Dexter\Result */
 $item = $depot->get(1, 10);
 
 print_r($item->toArray());
@@ -295,7 +295,7 @@ namespace Acme\Depots;
 
 use Acme\Sample\User;
 use Acme\Sample\UserReader;
-use Rougin\Dexterity\Depot;
+use Rougin\Dexter\Depot;
 
 class UserDepot extends Depot
 {
@@ -348,7 +348,7 @@ When using the `update` method, its required logic must also be defined:
 namespace Acme\Depots;
 
 use Acme\Sample\UserUpdater;
-use Rougin\Dexterity\Depot;
+use Rougin\Dexter\Depot;
 
 class UserDepot extends Depot
 {
@@ -373,14 +373,14 @@ If the logic for the `update` method is not defined, it will throw a `LogicError
 
 ## Using `Route`
 
-The `Route` class in `Dexterity` is similar to the previously discussed `Depot` class. While the `Depot` class conforms to the [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete), the `Route` class closely follows the [RESTful software architecture style](https://en.wikipedia.org/wiki/REST) and uses the [PSR-07](https://www.php-fig.org/psr/psr-7/) standard for standardization of its HTTP responses:
+The `Route` class in `Dexter` is similar to the previously discussed `Depot` class. While the `Depot` class conforms to the [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete), the `Route` class closely follows the [RESTful software architecture style](https://en.wikipedia.org/wiki/REST) and uses the [PSR-07](https://www.php-fig.org/psr/psr-7/) standard for standardization of its HTTP responses:
 
 ``` php
 namespace Acme\Routes;
 
 use Acme\Depots\UserDepot;
-use Rougin\Dexterity\Message\JsonResponse;
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Route;
 
 class Users extends Route
 {
@@ -425,7 +425,7 @@ This method will be triggered if `[METHOD]` requires to be validated first. If n
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Route;
 
 class Users extends Route
 {
@@ -452,8 +452,8 @@ This method will be triggered if the `is[METHOD]Valid` method returns to `false`
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexterity\Message\ErrorResponse;
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Message\ErrorResponse;
+use Rougin\Dexter\Route;
 
 class Users extends Route
 {
@@ -478,8 +478,8 @@ This is the main method that requires to write its logic based on `[METHOD]`:
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexterity\Message\JsonResponse;
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Route;
 
 class Users extends Route
 {
@@ -513,9 +513,9 @@ The `delete` method is an HTTP route which can be used for deleting a specified 
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexterity\Message\ErrorResponse;
-use Rougin\Dexterity\Message\JsonResponse;
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Message\ErrorResponse;
+use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Route;
 
 class Users extends Route
 {
@@ -577,9 +577,9 @@ The `index` method should return an array of items as its HTTP response:
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexterity\Message\ErrorResponse;
-use Rougin\Dexterity\Message\JsonResponse;
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Message\ErrorResponse;
+use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Route;
 
 class Users extends Route
 {
@@ -644,9 +644,9 @@ The `show` method returns an HTTP response for the specified item:
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexterity\Message\ErrorResponse;
-use Rougin\Dexterity\Message\JsonResponse;
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Message\ErrorResponse;
+use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Route;
 
 class Users extends Route
 {
@@ -713,9 +713,9 @@ The `store` method should be responsible for creating new items to the specified
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexterity\Message\ErrorResponse;
-use Rougin\Dexterity\Message\JsonResponse;
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Message\ErrorResponse;
+use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Route;
 
 class Users extends Route
 {
@@ -780,9 +780,9 @@ The `update` method updates the details of a specified item:
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexterity\Message\ErrorResponse;
-use Rougin\Dexterity\Message\JsonResponse;
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Message\ErrorResponse;
+use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Route;
 
 class Users extends Route
 {
@@ -854,17 +854,17 @@ See [CONTRIBUTING][link-contributing] on how to contribute.
 
 The MIT License (MIT). Please see [LICENSE][link-license] for more information.
 
-[ico-build]: https://img.shields.io/github/actions/workflow/status/rougin/dexterity/build.yml?style=flat-square
-[ico-coverage]: https://img.shields.io/codecov/c/github/rougin/dexterity?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/rougin/dexterity.svg?style=flat-square
+[ico-build]: https://img.shields.io/github/actions/workflow/status/rougin/dexter/build.yml?style=flat-square
+[ico-coverage]: https://img.shields.io/codecov/c/github/rougin/dexter?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/rougin/dexter.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-version]: https://img.shields.io/packagist/v/rougin/dexterity.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/rougin/dexter.svg?style=flat-square
 
-[link-build]: https://github.com/rougin/dexterity/actions
-[link-changelog]: https://github.com/rougin/dexterity/blob/master/CHANGELOG.md
-[link-contributing]: https://github.com/rougin/dexterity/blob/master/CONTRIBUTING.md
-[link-contributors]: https://github.com/rougin/dexterity/contributors
-[link-coverage]: https://app.codecov.io/gh/rougin/dexterity
-[link-downloads]: https://packagist.org/packages/rougin/dexterity
-[link-license]: https://github.com/rougin/dexterity/blob/master/LICENSE.md
-[link-packagist]: https://packagist.org/packages/rougin/dexterity
+[link-build]: https://github.com/rougin/dexter/actions
+[link-changelog]: https://github.com/rougin/dexter/blob/master/CHANGELOG.md
+[link-contributing]: https://github.com/rougin/dexter/blob/master/CONTRIBUTING.md
+[link-contributors]: https://github.com/rougin/dexter/contributors
+[link-coverage]: https://app.codecov.io/gh/rougin/dexter
+[link-downloads]: https://packagist.org/packages/rougin/dexter
+[link-license]: https://github.com/rougin/dexter/blob/master/LICENSE.md
+[link-packagist]: https://packagist.org/packages/rougin/dexter

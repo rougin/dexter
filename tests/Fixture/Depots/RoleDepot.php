@@ -1,19 +1,19 @@
 <?php
 
-namespace Rougin\Dexterity\Fixture\Depots;
+namespace Rougin\Dexter\Fixture\Depots;
 
-use Rougin\Dexterity\Depots\EloquentDepot;
-use Rougin\Dexterity\Fixture\Models\Role;
+use Rougin\Dexter\Depots\EloquentDepot;
+use Rougin\Dexter\Fixture\Models\Role;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class RoleDepot extends EloquentDepot
 {
     /**
-     * @param \Rougin\Dexterity\Fixture\Models\Role $role
+     * @param \Rougin\Dexter\Fixture\Models\Role $role
      */
     public function __construct(Role $role)
     {
@@ -21,7 +21,7 @@ class RoleDepot extends EloquentDepot
     }
 
     /**
-     * @param \Rougin\Dexterity\Fixture\Models\Role $row
+     * @param \Rougin\Dexter\Fixture\Models\Role $row
      *
      * @return array<string, mixed>
      */

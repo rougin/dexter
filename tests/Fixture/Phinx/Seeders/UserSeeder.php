@@ -3,7 +3,7 @@
 use Phinx\Seed\AbstractSeed;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
@@ -32,7 +32,7 @@ class UserSeeder extends AbstractSeed
         $items[] = $item;
 
         $item = array('email' => 'dxtr@roug.in');
-        $item['name'] = 'Dexterity';
+        $item['name'] = 'Dexter';
         $item['created_at'] = date('Y-m-d H:i:s');
         $items[] = $item;
 

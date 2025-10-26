@@ -1,25 +1,25 @@
 <?php
 
-namespace Rougin\Dexterity\Fixture\Routes;
+namespace Rougin\Dexter\Fixture\Routes;
 
-use Rougin\Dexterity\Fixture\Depots\UserDepot;
-use Rougin\Dexterity\Message\JsonResponse;
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Fixture\Depots\UserDepot;
+use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Route;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class Users extends Route
 {
     /**
-     * @var \Rougin\Dexterity\Fixture\Depots\UserDepot
+     * @var \Rougin\Dexter\Fixture\Depots\UserDepot
      */
     protected $user;
 
     /**
-     * @param \Rougin\Dexterity\Fixture\Depots\UserDepot $user
+     * @param \Rougin\Dexter\Fixture\Depots\UserDepot $user
      */
     public function __construct(UserDepot $user)
     {
@@ -78,7 +78,7 @@ class Users extends Route
      */
     protected function setStoreData($parsed)
     {
-        /** @var \Rougin\Dexterity\Fixture\Models\User */
+        /** @var \Rougin\Dexter\Fixture\Models\User */
         $item = $this->user->create($parsed);
 
         return new JsonResponse($item->id, 201);

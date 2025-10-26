@@ -1,6 +1,6 @@
 <?php
 
-namespace Rougin\Dexterity\Fixture\Models;
+namespace Rougin\Dexter\Fixture\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string  $slug
  * @property string  $name
  *
- * @method \Rougin\Dexterity\Fixture\Models\Role create(array<string, mixed> $data)
+ * @method \Rougin\Dexter\Fixture\Models\Role create(array<string, mixed> $data)
  *
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */

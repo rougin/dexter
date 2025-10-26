@@ -1,11 +1,11 @@
 <?php
 
-namespace Rougin\Dexterity\Message;
+namespace Rougin\Dexter\Message;
 
 use Rougin\Slytherin\Http\Response;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */

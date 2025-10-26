@@ -1,20 +1,20 @@
 <?php
 
-namespace Rougin\Dexterity;
+namespace Rougin\Dexter;
 
-use Rougin\Dexterity\Fixture\Depots\UserDepot;
-use Rougin\Dexterity\Fixture\Models\User;
-use Rougin\Dexterity\Fixture\Routes\Users;
+use Rougin\Dexter\Fixture\Depots\UserDepot;
+use Rougin\Dexter\Fixture\Models\User;
+use Rougin\Dexter\Fixture\Routes\Users;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class RouteTest extends Testcase
 {
     /**
-     * @var \Rougin\Dexterity\Fixture\Routes\Users
+     * @var \Rougin\Dexter\Fixture\Routes\Users
      */
     protected $route;
 

@@ -1,20 +1,20 @@
 <?php
 
-namespace Rougin\Dexterity\Error;
+namespace Rougin\Dexter\Error;
 
-use Rougin\Dexterity\Depot;
-use Rougin\Dexterity\Fixture\Depots\TestDepot;
-use Rougin\Dexterity\Testcase;
+use Rougin\Dexter\Depot;
+use Rougin\Dexter\Fixture\Depots\TestDepot;
+use Rougin\Dexter\Testcase;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class DepotTest extends Testcase
 {
     /**
-     * @var \Rougin\Dexterity\Depot
+     * @var \Rougin\Dexter\Depot
      */
     protected $depot;
 

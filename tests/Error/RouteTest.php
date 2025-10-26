@@ -1,19 +1,19 @@
 <?php
 
-namespace Rougin\Dexterity\Error;
+namespace Rougin\Dexter\Error;
 
-use Rougin\Dexterity\Fixture\Routes\Tset;
-use Rougin\Dexterity\Testcase;
+use Rougin\Dexter\Fixture\Routes\Tset;
+use Rougin\Dexter\Testcase;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class RouteTest extends Testcase
 {
     /**
-     * @var \Rougin\Dexterity\Fixture\Routes\Tset
+     * @var \Rougin\Dexter\Fixture\Routes\Tset
      */
     protected $route;
 

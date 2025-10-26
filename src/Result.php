@@ -1,11 +1,11 @@
 <?php
 
-namespace Rougin\Dexterity;
+namespace Rougin\Dexter;
 
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */

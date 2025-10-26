@@ -1,16 +1,16 @@
 <?php
 
-namespace Rougin\Dexterity;
+namespace Rougin\Dexter;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
 class Depot
 {
     /**
-     * @var \Rougin\Dexterity\Filter|null
+     * @var \Rougin\Dexter\Filter|null
      */
     protected $filter = null;
 
@@ -59,7 +59,7 @@ class Depot
      * @param integer $page
      * @param integer $limit
      *
-     * @return \Rougin\Dexterity\Result
+     * @return \Rougin\Dexter\Result
      */
     public function get($page, $limit)
     {
@@ -119,7 +119,7 @@ class Depot
     }
 
     /**
-     * @param \Rougin\Dexterity\Filter $filter
+     * @param \Rougin\Dexter\Filter $filter
      *
      * @return self
      */

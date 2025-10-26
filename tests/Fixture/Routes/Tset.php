@@ -1,11 +1,11 @@
 <?php
 
-namespace Rougin\Dexterity\Fixture\Routes;
+namespace Rougin\Dexter\Fixture\Routes;
 
-use Rougin\Dexterity\Route;
+use Rougin\Dexter\Route;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */

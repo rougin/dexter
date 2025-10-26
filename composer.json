@@ -1,8 +1,8 @@
 {
-  "name": "rougin/dexterity",
+  "name": "rougin/dexter",
   "description": "\"Ready-to-eat\" CRUD code in PHP.",
   "keywords": [ "php-crud", "php-depot", "php-rapid" ],
-  "homepage": "https://roug.in/dexterity/",
+  "homepage": "https://roug.in/dexter/",
   "license": "MIT",
   "authors":
   [
@@ -22,21 +22,21 @@
   },
   "require-dev":
   {
-    "phpunit/phpunit": ">=4.2",
-    "sanmai/phpunit-legacy-adapter": ">=6.0"
+    "phpunit/phpunit": "*",
+    "sanmai/phpunit-legacy-adapter": "*"
   },
   "autoload":
   {
     "psr-4":
     {
-      "Rougin\\Dexterity\\": "src"
+      "Rougin\\Dexter\\": "src"
     }
   },
   "autoload-dev":
   {
     "psr-4":
     {
-      "Rougin\\Dexterity\\": "tests"
+      "Rougin\\Dexter\\": "tests"
     }
   },
   "scripts":

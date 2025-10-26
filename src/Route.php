@@ -1,12 +1,12 @@
 <?php
 
-namespace Rougin\Dexterity;
+namespace Rougin\Dexter;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Rougin\Dexterity\Message\ErrorResponse;
+use Rougin\Dexter\Message\ErrorResponse;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */

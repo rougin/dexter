@@ -1,11 +1,11 @@
 <?php
 
-namespace Rougin\Dexterity\Depots;
+namespace Rougin\Dexter\Depots;
 
-use Rougin\Dexterity\Depot;
+use Rougin\Dexter\Depot;
 
 /**
- * @package Dexterity
+ * @package Dexter
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
