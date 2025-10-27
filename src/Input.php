@@ -152,63 +152,11 @@ class Input
     }
 
     /**
-     * @param string  $name
-     * @param boolean $value
-     *
-     * @return self
-     */
-    public function setBool($name, $value)
-    {
-        $this->data[$name] = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param string  $name
-     * @param integer $value
-     *
-     * @return self
-     */
-    public function setInt($name, $value)
-    {
-        $this->data[$name] = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param float  $value
-     *
-     * @return self
-     */
-    public function setFloat($name, $value)
-    {
-        $this->data[$name] = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param string $value
-     *
-     * @return self
-     */
-    public function setStr($name, $value)
-    {
-        $this->data[$name] = $value;
-
-        return $this;
-    }
-
-    /**
      * @param string $key
      *
      * @return mixed
      */
-    protected function getItem($key)
+    public function getItem($key)
     {
         $exists = array_key_exists($key, $this->data);
 

@@ -23,6 +23,58 @@ class Filter extends Input
     }
 
     /**
+     * @param string  $name
+     * @param boolean $value
+     *
+     * @return self
+     */
+    public function setBool($name, $value)
+    {
+        $this->data[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string  $name
+     * @param integer $value
+     *
+     * @return self
+     */
+    public function setInt($name, $value)
+    {
+        $this->data[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param float  $value
+     *
+     * @return self
+     */
+    public function setFloat($name, $value)
+    {
+        $this->data[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     *
+     * @return self
+     */
+    public function setStr($name, $value)
+    {
+        $this->data[$name] = $value;
+
+        return $this;
+    }
+
+    /**
      * @param string|string[] $keys
      *
      * @return self
