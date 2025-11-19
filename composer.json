@@ -1,6 +1,6 @@
 {
   "name": "rougin/dexter",
-  "description": "\"Ready-to-eat\" CRUD code in PHP.",
+  "description": "\"Ready-to-eat\" CRUD for PHP backend.",
   "keywords": [ "php-crud", "php-depot", "php-rapid" ],
   "homepage": "https://roug.in/dexter/",
   "license": "MIT",
