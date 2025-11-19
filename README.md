@@ -842,7 +842,7 @@ $route = /** ... */;
 $response = $route->update(99, $request);
 ```
 
-## Change log
+## Changelog
 
 Please see [CHANGELOG][link-changelog] for more recent changes.
 
@@ -863,7 +863,7 @@ The MIT License (MIT). Please see [LICENSE][link-license] for more information.
 [link-build]: https://github.com/rougin/dexter/actions
 [link-changelog]: https://github.com/rougin/dexter/blob/master/CHANGELOG.md
 [link-contributing]: https://github.com/rougin/dexter/blob/master/CONTRIBUTING.md
-[link-contributors]: https://github.com/rougin/dexter/contributors
+
 [link-coverage]: https://app.codecov.io/gh/rougin/dexter
 [link-downloads]: https://packagist.org/packages/rougin/dexter
 [link-license]: https://github.com/rougin/dexter/blob/master/LICENSE.md
