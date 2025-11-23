@@ -8,6 +8,23 @@
 
 `Dexter` is a utility PHP package that provides extensible PHP classes for handling [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete). It can also create HTTP routes that conforms to the [PSR-07](https://www.php-fig.org/psr/psr-7/) standard.
 
+``` php
+namespace Rougin\Torin\Depots;
+
+use Rougin\Dexter\Depots\EloquentDepot;
+use Rougin\Torin\Models\Client;
+
+class ClientDepot extends EloquentDepot
+{
+    protected $model;
+
+    public function __construct(Client $client)
+    {
+        $this->model = $client;
+    }
+}
+```
+
 ## Installation
 
 Install the `Dexter` package via [Composer](https://getcomposer.org/):
