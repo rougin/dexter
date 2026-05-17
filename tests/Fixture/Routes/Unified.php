@@ -2,7 +2,7 @@
 
 namespace Rougin\Dexter\Fixture\Routes;
 
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 /**
@@ -71,7 +71,7 @@ class Unified extends Route
 
         $data['code'] = $code;
 
-        return new JsonResponse($data, $code);
+        return Response::toJson($data, $code);
     }
 
     /**

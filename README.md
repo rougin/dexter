@@ -396,7 +396,7 @@ The `Route` class in `Dexter` is similar to the previously discussed `Depot` cla
 namespace Acme\Routes;
 
 use Acme\Depots\UserDepot;
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -412,7 +412,7 @@ class Users extends Route
     {
         $result = $this->user->get($params['page'], $params['limit']);
 
-        return new JsonResponse($result->toArray());
+        return Response::toJson($result->toArray());
     }
 }
 ```
@@ -469,7 +469,7 @@ This method will be triggered if the `is[METHOD]Valid` method returns to `false`
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexter\Message\ErrorResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -483,7 +483,7 @@ class Users extends Route
      */
     protected function invalidIndex()
     {
-        return new ErrorResponse(422);
+        return new Response(422);
     }
 }
 ```
@@ -495,7 +495,7 @@ This is the main method that requires to write its logic based on `[METHOD]`:
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -513,7 +513,7 @@ class Users extends Route
     {
         $result = $this->user->get($params['page'], $params['limit']);
 
-        return new JsonResponse($result->toArray());
+        return Response::toJson($result->toArray());
     }
 }
 ```
@@ -530,8 +530,7 @@ The `delete` method is an HTTP route which can be used for deleting a specified 
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexter\Message\ErrorResponse;
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -545,7 +544,7 @@ class Users extends Route
      */
     protected function invalidDelete()
     {
-        return new ErrorResponse(404);
+        return new Response(404);
     }
 
     /**
@@ -571,7 +570,7 @@ class Users extends Route
     {
         $this->user->delete($id);
 
-        return new JsonResponse('Deleted!', 204);
+        return Response::toJson('Deleted!', 204);
     }
 }
 ```
@@ -594,8 +593,7 @@ The `index` method should return an array of items as its HTTP response:
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexter\Message\ErrorResponse;
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -609,7 +607,7 @@ class Users extends Route
      */
     protected function invalidIndex()
     {
-        return new ErrorResponse(422);
+        return new Response(422);
     }
 
     /**
@@ -635,7 +633,7 @@ class Users extends Route
     {
         $result = $this->user->get($params['page'], $params['limit']);
 
-        return new JsonResponse($result->toArray());
+        return Response::toJson($result->toArray());
     }
 }
 ```
@@ -661,8 +659,7 @@ The `show` method returns an HTTP response for the specified item:
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexter\Message\ErrorResponse;
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -676,7 +673,7 @@ class Users extends Route
      */
     protected function invalidShow()
     {
-        return new ErrorResponse(422);
+        return new Response(422);
     }
 
     /**
@@ -704,7 +701,7 @@ class Users extends Route
     {
         $item = $this->user->find($id);
 
-        return new JsonResponse($item);
+        return Response::toJson($item);
     }
 }
 ```
@@ -730,8 +727,7 @@ The `store` method should be responsible for creating new items to the specified
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexter\Message\ErrorResponse;
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -745,7 +741,7 @@ class Users extends Route
      */
     protected function invalidStore()
     {
-        return new ErrorResponse(422);
+        return new Response(422);
     }
 
     /**
@@ -771,7 +767,7 @@ class Users extends Route
     {
         $this->user->create($parsed);
 
-        return new JsonResponse('Created!', 201);
+        return Response::toJson('Created!', 201);
     }
 }
 ```
@@ -797,8 +793,7 @@ The `update` method updates the details of a specified item:
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexter\Message\ErrorResponse;
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -812,7 +807,7 @@ class Users extends Route
      */
     protected function invalidUpdate()
     {
-        return new ErrorResponse(422);
+        return new Response(422);
     }
 
     /**
@@ -840,7 +835,7 @@ class Users extends Route
     {
         $this->user->update($id, $parsed);
 
-        return new JsonResponse('Updated!', 204);
+        return Response::toJson('Updated!', 204);
     }
 }
 ```
@@ -870,7 +865,7 @@ Returns an error response for any action. The `$code` parameter defaults to `400
 ``` php
 namespace Acme\Routes;
 
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -886,7 +881,7 @@ class Users extends Route
     {
         $errors = $this->check->errors();
 
-        return new JsonResponse($errors, $code);
+        return Response::toJson($errors, $code);
     }
 }
 ```

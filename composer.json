@@ -17,13 +17,13 @@
   {
     "php": ">=5.3.0",
     "illuminate/database": "*",
-    "rougin/slytherin": "~0.9"
+    "rougin/slytherin": "*"
   },
   "require-dev":
   {
     "phpunit/phpunit": "*",
     "sanmai/phpunit-legacy-adapter": "*",
-    "robmorgan/phinx": "~0.1"
+    "robmorgan/phinx": "*"
   },
   "autoload":
   {

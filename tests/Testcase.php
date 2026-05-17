@@ -191,37 +191,43 @@ class Testcase extends Legacy
      */
     protected function setPhinx()
     {
+        $fixture = __DIR__ . '/Fixture';
+
         $app = new Container;
 
-        // Prepare the PDO to the configuration file ---------
-        $data = require __DIR__ . '/Fixture/Config/Phinx.php';
-
+        // Prepare the PDO to the configuration file ------
         $pdo = $this->capsule->getConnection()->getPdo();
+
+        $data = require $fixture . '/Config/Phinx.php';
 
         /** @phpstan-ignore-next-line */
         $data['environments']['test']['connection'] = $pdo;
 
+        $name = 'Phinx\Config\ConfigInterface';
+
         /** @phpstan-ignore-next-line */
-        $config = new \Phinx\Config\Config($data);
+        $app->set($name, new \Phinx\Config\Config($data));
+        // ------------------------------------------------
 
-        $app->set('Phinx\Config\ConfigInterface', $config);
-        // ---------------------------------------------------
+        // Prepare the "Input", "Output" classes ------
+        $console = 'Symfony\Component\Console';
 
-        // Prepare the default Input and Output classes -------------
-        $input = 'Symfony\Component\Console\Input\InputInterface';
+        $input = $console . '\Input\InputInterface';
+
         $app->set($input, new ArrayInput(array()));
 
-        $output = 'Symfony\Component\Console\Output\OutputInterface';
-        $app->set($output, new NullOutput);
-        // ----------------------------------------------------------
+        $output = $console . '\Output\OutputInterface';
 
-        // PHP 5.3 - Use "Reflection API" for "Manager" as ---
-        // it has different arguments in "v0.6.0" onwards ----
+        $app->set($output, new NullOutput);
+        // --------------------------------------------
+
+        // PHP 5.3 - Use "Reflection API" for "Manager" ---
+        // as it has different arguments in >= "v0.6.0" ---
         $reflect = new ReflectionContainer($app);
 
         /** @var \Phinx\Migration\Manager */
         return $reflect->get('Phinx\Migration\Manager');
-        // ---------------------------------------------------
+        // ------------------------------------------------
     }
 
     /**
@@ -241,13 +247,18 @@ class Testcase extends Legacy
     {
         $capsule = new Capsule;
 
+        // Set database in memory -----
         $data = array('prefix' => '');
+
         $data['database'] = ':memory:';
+
         $data['driver'] = 'sqlite';
+        // ----------------------------
 
         $capsule->addConnection($data);
 
         $capsule->setAsGlobal();
+
         $capsule->bootEloquent();
 
         $this->capsule = $capsule;
@@ -261,12 +272,15 @@ class Testcase extends Legacy
      */
     protected function withHttp($data = array(), $parsed = false)
     {
-        $server = array();
+        // Mock the details from $_SERVER ----
+        $server = array('REQUEST_URI' => '/');
 
         $server['REQUEST_METHOD'] = 'GET';
-        $server['REQUEST_URI'] = '/';
+
         $server['SERVER_NAME'] = 'localhost';
+
         $server['SERVER_PORT'] = '8000';
+        // -----------------------------------
 
         $request = new ServerRequest($server);
 

@@ -3,7 +3,7 @@
 namespace Rougin\Dexter;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Rougin\Dexter\Message\ErrorResponse;
+use Rougin\Dexter\Http\Response;
 
 /**
  * @package Dexter
@@ -121,7 +121,7 @@ class Route
      */
     protected function invalid($code = 400)
     {
-        return new ErrorResponse($code);
+        return new Response($code);
     }
 
     /**

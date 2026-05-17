@@ -3,7 +3,7 @@
 namespace Rougin\Dexter\Fixture\Routes;
 
 use Rougin\Dexter\Fixture\Depots\UserDepot;
-use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Http\Response;
 use Rougin\Dexter\Route;
 
 /**
@@ -37,7 +37,7 @@ class Users extends Route
     {
         $this->user->delete($id);
 
-        return new JsonResponse('Deleted!', 204);
+        return Response::toJson('Deleted!', 204);
     }
 
     /**
@@ -51,7 +51,7 @@ class Users extends Route
 
         $data = $result->toArray();
 
-        return new JsonResponse($data);
+        return Response::toJson($data);
     }
 
     /**
@@ -66,7 +66,7 @@ class Users extends Route
     {
         $item = $this->user->find($id)->asRow();
 
-        return new JsonResponse($item);
+        return Response::toJson($item);
     }
 
     /**
@@ -81,7 +81,7 @@ class Users extends Route
         /** @var \Rougin\Dexter\Fixture\Models\User */
         $item = $this->user->create($parsed);
 
-        return new JsonResponse($item->id, 201);
+        return Response::toJson($item->id, 201);
     }
 
     /**
@@ -96,6 +96,6 @@ class Users extends Route
     {
         $this->user->update($id, $parsed);
 
-        return new JsonResponse('Updated!', 204);
+        return Response::toJson('Updated!', 204);
     }
 }
