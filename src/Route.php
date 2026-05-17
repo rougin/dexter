@@ -233,7 +233,7 @@ class Route
      */
     protected function setDeleteData($id)
     {
-        $text = 'The "[METHOD]" method must be overwriten in the concrete class.';
+        $text = 'The "[METHOD]" method must be overwritten in the concrete class.';
 
         throw new \LogicException(str_replace('[METHOD]', __FUNCTION__, $text));
     }
@@ -247,7 +247,7 @@ class Route
      */
     protected function setIndexData($params)
     {
-        $text = 'The "[METHOD]" method must be overwriten in the concrete class.';
+        $text = 'The "[METHOD]" method must be overwritten in the concrete class.';
 
         throw new \LogicException(str_replace('[METHOD]', __FUNCTION__, $text));
     }
@@ -262,7 +262,7 @@ class Route
      */
     protected function setShowData($id, $params)
     {
-        $text = 'The "[METHOD]" method must be overwriten in the concrete class.';
+        $text = 'The "[METHOD]" method must be overwritten in the concrete class.';
 
         throw new \LogicException(str_replace('[METHOD]', __FUNCTION__, $text));
     }
@@ -276,7 +276,7 @@ class Route
      */
     protected function setStoreData($parsed)
     {
-        $text = 'The "[METHOD]" method must be overwriten in the concrete class.';
+        $text = 'The "[METHOD]" method must be overwritten in the concrete class.';
 
         throw new \LogicException(str_replace('[METHOD]', __FUNCTION__, $text));
     }
@@ -291,7 +291,7 @@ class Route
      */
     protected function setUpdateData($id, $parsed)
     {
-        $text = 'The "[METHOD]" method must be overwriten in the concrete class.';
+        $text = 'The "[METHOD]" method must be overwritten in the concrete class.';
 
         throw new \LogicException(str_replace('[METHOD]', __FUNCTION__, $text));
     }

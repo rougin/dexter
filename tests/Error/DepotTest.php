@@ -23,7 +23,7 @@ class DepotTest extends Testcase
      */
     public function test_create_error()
     {
-        $text = 'The "create" method must be overwriten in the concrete class.';
+        $text = 'The "create" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -35,7 +35,7 @@ class DepotTest extends Testcase
      */
     public function test_delete_error()
     {
-        $text = 'The "rowExists" method must be overwriten in the concrete class.';
+        $text = 'The "rowExists" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -49,7 +49,7 @@ class DepotTest extends Testcase
     {
         $depot = new TestDepot;
 
-        $text = 'The "deleteRow" method must be overwriten in the concrete class.';
+        $text = 'The "deleteRow" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -75,7 +75,7 @@ class DepotTest extends Testcase
      */
     public function test_find_error()
     {
-        $text = 'The "findRow" method must be overwriten in the concrete class.';
+        $text = 'The "findRow" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -87,7 +87,7 @@ class DepotTest extends Testcase
      */
     public function test_get_error()
     {
-        $text = 'The "getItems" method must be overwriten in the concrete class.';
+        $text = 'The "getItems" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -101,7 +101,7 @@ class DepotTest extends Testcase
     {
         $depot = new TestDepot;
 
-        $text = 'The "getTotal" method must be overwriten in the concrete class.';
+        $text = 'The "getTotal" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -113,7 +113,7 @@ class DepotTest extends Testcase
      */
     public function test_update_error()
     {
-        $text = 'The "update" method must be overwriten in the concrete class.';
+        $text = 'The "update" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 

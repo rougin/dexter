@@ -24,7 +24,7 @@ class RouteTest extends Testcase
     {
         $http = $this->withHttp();
 
-        $text = 'The "setDeleteData" method must be overwriten in the concrete class.';
+        $text = 'The "setDeleteData" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -56,7 +56,7 @@ class RouteTest extends Testcase
     {
         $http = $this->withHttp();
 
-        $text = 'The "setIndexData" method must be overwriten in the concrete class.';
+        $text = 'The "setIndexData" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -88,7 +88,7 @@ class RouteTest extends Testcase
     {
         $http = $this->withHttp();
 
-        $text = 'The "setShowData" method must be overwriten in the concrete class.';
+        $text = 'The "setShowData" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -120,7 +120,7 @@ class RouteTest extends Testcase
     {
         $http = $this->withHttp();
 
-        $text = 'The "setStoreData" method must be overwriten in the concrete class.';
+        $text = 'The "setStoreData" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
@@ -152,7 +152,7 @@ class RouteTest extends Testcase
     {
         $http = $this->withHttp();
 
-        $text = 'The "setUpdateData" method must be overwriten in the concrete class.';
+        $text = 'The "setUpdateData" method must be overwritten in the concrete class.';
 
         $this->doExpectExceptionMessage($text);
 
