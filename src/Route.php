@@ -115,6 +115,18 @@ class Route
     /**
      * Returns a response if the validation failed.
      *
+     * @param integer $code
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function invalid($code = 400)
+    {
+        return new ErrorResponse($code);
+    }
+
+    /**
+     * Returns a response if the validation failed.
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function invalidDelete()
@@ -129,7 +141,7 @@ class Route
      */
     protected function invalidIndex()
     {
-        return new ErrorResponse(422);
+        return $this->invalid(422);
     }
 
     /**
@@ -149,7 +161,7 @@ class Route
      */
     protected function invalidStore()
     {
-        return new ErrorResponse(422);
+        return $this->invalid(422);
     }
 
     /**
@@ -159,7 +171,20 @@ class Route
      */
     protected function invalidUpdate()
     {
-        return new ErrorResponse(422);
+        return $this->invalid(422);
+    }
+
+    /**
+     * Checks if the action is valid.
+     *
+     * @param array<string, mixed> $data
+     * @param integer              $id
+     *
+     * @return boolean
+     */
+    protected function isValid($data, $id = 0)
+    {
+        return true;
     }
 
     /**
@@ -183,7 +208,7 @@ class Route
      */
     protected function isIndexValid($params)
     {
-        return true;
+        return $this->isValid($params);
     }
 
     /**
@@ -208,7 +233,7 @@ class Route
      */
     protected function isStoreValid($parsed)
     {
-        return true;
+        return $this->isValid($parsed);
     }
 
     /**
@@ -221,7 +246,7 @@ class Route
      */
     protected function isUpdateValid($id, $parsed)
     {
-        return true;
+        return $this->isValid($parsed, $id);
     }
 
     /**

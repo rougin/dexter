@@ -39,18 +39,6 @@ class Tset extends Route
     }
 
     /**
-     * Checks if the items are allowed to be returned.
-     *
-     * @param array<string, mixed> $params
-     *
-     * @return boolean
-     */
-    protected function isIndexValid($params)
-    {
-        return $this->valid;
-    }
-
-    /**
      * Checks if the specified item is allowed to be returned.
      *
      * @param integer              $id
@@ -64,26 +52,14 @@ class Tset extends Route
     }
 
     /**
-     * Checks if it is allowed to create a new item.
+     * Checks if the action is valid.
      *
-     * @param array<string, mixed> $parsed
-     *
-     * @return boolean
-     */
-    protected function isStoreValid($parsed)
-    {
-        return $this->valid;
-    }
-
-    /**
-     * Checks if the specified item can be updated.
-     *
+     * @param array<string, mixed> $data
      * @param integer              $id
-     * @param array<string, mixed> $parsed
      *
      * @return boolean
      */
-    protected function isUpdateValid($id, $parsed)
+    protected function isValid($data, $id = 0)
     {
         return $this->valid;
     }

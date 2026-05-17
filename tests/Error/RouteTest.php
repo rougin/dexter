@@ -3,6 +3,7 @@
 namespace Rougin\Dexter\Error;
 
 use Rougin\Dexter\Fixture\Routes\Tset;
+use Rougin\Dexter\Fixture\Routes\Unified;
 use Rougin\Dexter\Testcase;
 
 /**
@@ -173,6 +174,166 @@ class RouteTest extends Testcase
         $expected = 422;
 
         $actual = $response->getStatusCode();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_invalid_unified_delete()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->delete(7, $http);
+
+        $expected = 404;
+
+        $actual = $route->getCode();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_invalid_unified_index()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->index($http);
+
+        $expected = 422;
+
+        $actual = $route->getCode();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_invalid_unified_show()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->show(7, $http);
+
+        $expected = 404;
+
+        $actual = $route->getCode();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_invalid_unified_store()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->store($http);
+
+        $expected = 422;
+
+        $actual = $route->getCode();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_invalid_unified_update()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->update(7, $http);
+
+        $expected = 422;
+
+        $actual = $route->getCode();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_is_valid_unified_index()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->index($http);
+
+        $expected = 0;
+
+        $actual = $route->getId();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_is_valid_unified_store()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->store($http);
+
+        $expected = 0;
+
+        $actual = $route->getId();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_is_valid_unified_update()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->update(7, $http);
+
+        $expected = 7;
+
+        $actual = $route->getId();
 
         $this->assertEquals($expected, $actual);
     }

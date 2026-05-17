@@ -859,6 +859,69 @@ $route = /** ... */;
 $response = $route->update(99, $request);
 ```
 
+## Unified validation
+
+When multiple actions share the same validation logic, use the `invalid` and `isValid` methods to avoid duplication.
+
+### `invalid`
+
+Returns an error response for `index`, `store`, and `update` actions. The `$code` parameter defaults to `400`:
+
+``` php
+namespace Acme\Routes;
+
+use Rougin\Dexter\Message\JsonResponse;
+use Rougin\Dexter\Route;
+
+class Users extends Route
+{
+    // ...
+
+    /**
+     * @param integer $code
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function invalid($code = 400)
+    {
+        $errors = $this->check->errors();
+
+        return new JsonResponse($errors, $code);
+    }
+}
+```
+
+### `isValid`
+
+Handles validation for `index`, `store`, and `update` actions. The `$data` parameter receives query params or parsed body; `$id` defaults to `0` when not applicable:
+
+``` php
+namespace Acme\Routes;
+
+use Rougin\Dexter\Route;
+
+class Users extends Route
+{
+    // ...
+
+    /**
+     * @param array<string, mixed> $data
+     * @param integer              $id
+     *
+     * @return boolean
+     */
+    protected function isValid($data, $id = 0)
+    {
+        if ($id && ! $this->depot->rowExists($id))
+        {
+            return false;
+        }
+
+        return $this->check->valid($data);
+    }
+}
+```
+
 ## Changelog
 
 Please see [CHANGELOG][link-changelog] for more recent changes.
