@@ -27,14 +27,14 @@ class Tset extends Route
     }
 
     /**
-     * Checks if the action is valid.
+     * Checks if the action is allowed.
      *
      * @param array<string, mixed> $data
      * @param integer              $id
      *
      * @return boolean
      */
-    protected function isValid($data, $id = 0)
+    protected function isAllowed($data, $id = 0)
     {
         return $this->valid;
     }

@@ -22,7 +22,7 @@ class Route
      */
     public function delete($id, ServerRequestInterface $request)
     {
-        if (! $this->isDeleteValid($id))
+        if (! $this->isRowValid($id))
         {
             return $this->invalidDelete();
         }
@@ -63,7 +63,7 @@ class Route
         /** @var array<string, mixed> */
         $params = $request->getQueryParams();
 
-        if (! $this->isShowValid($id, $params))
+        if (! $this->isRowValid($id))
         {
             return $this->invalidShow();
         }
@@ -175,28 +175,29 @@ class Route
     }
 
     /**
-     * Checks if the action is valid.
+     * Checks if the action is allowed.
      *
      * @param array<string, mixed> $data
      * @param integer              $id
      *
      * @return boolean
      */
-    protected function isValid($data, $id = 0)
+    protected function isAllowed($data, $id = 0)
     {
         return true;
     }
 
     /**
-     * Checks if the specified item can be deleted.
+     * Checks if the payload data is valid for the store/update actions.
      *
-     * @param integer $id
+     * @param array<string, mixed> $data
+     * @param integer              $id
      *
      * @return boolean
      */
-    protected function isDeleteValid($id)
+    protected function isDataValid($data, $id = 0)
     {
-        return $this->isValid(array(), $id);
+        return true;
     }
 
     /**
@@ -208,20 +209,19 @@ class Route
      */
     protected function isIndexValid($params)
     {
-        return $this->isValid($params);
+        return $this->isAllowed($params);
     }
 
     /**
-     * Checks if the specified item is allowed to be returned.
+     * Checks if the specified item can be shown or deleted.
      *
-     * @param integer              $id
-     * @param array<string, mixed> $params
+     * @param integer $id
      *
      * @return boolean
      */
-    protected function isShowValid($id, $params)
+    protected function isRowValid($id)
     {
-        return $this->isValid($params, $id);
+        return $this->isAllowed(array(), $id);
     }
 
     /**
@@ -233,7 +233,7 @@ class Route
      */
     protected function isStoreValid($parsed)
     {
-        return $this->isValid($parsed);
+        return $this->isAllowed($parsed) && $this->isDataValid($parsed);
     }
 
     /**
@@ -246,7 +246,7 @@ class Route
      */
     protected function isUpdateValid($id, $parsed)
     {
-        return $this->isValid($parsed, $id);
+        return $this->isAllowed($parsed, $id) && $this->isDataValid($parsed, $id);
     }
 
     /**

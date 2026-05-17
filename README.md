@@ -397,6 +397,7 @@ namespace Acme\Routes;
 
 use Acme\Depots\UserDepot;
 use Rougin\Dexter\Http\Response;
+use Rougin\Dexter\Input;
 use Rougin\Dexter\Route;
 
 class Users extends Route
@@ -410,9 +411,17 @@ class Users extends Route
 
     protected function setIndexData($params)
     {
-        $result = $this->user->get($params['page'], $params['limit']);
+        $query = new Input($params);
 
-        return Response::toJson($result->toArray());
+        $limit = $query->asTrueInt('l');
+
+        $page = $query->asTrueInt('p');
+
+        $result = $this->user->get($page, $limit);
+
+        $result = $result->toArray();
+
+        return Response::toJson($result);
     }
 }
 ```
@@ -554,7 +563,7 @@ class Users extends Route
      *
      * @return boolean
      */
-    protected function isDeleteValid($id)
+    protected function isRowValid($id)
     {
         return true;
     }
@@ -684,7 +693,7 @@ class Users extends Route
      *
      * @return boolean
      */
-    protected function isShowValid($id, $params)
+    protected function isRowValid($id)
     {
         return true;
     }
@@ -856,7 +865,7 @@ $response = $route->update(99, $request);
 
 ## Unified validation
 
-When multiple actions share the same validation logic, use the `invalid` and `isValid` methods to avoid duplication.
+When multiple actions share the same validation logic, use the `invalid`, `isAllowed`, and `isDataValid` methods to avoid duplication.
 
 ### `invalid`
 
@@ -879,18 +888,24 @@ class Users extends Route
      */
     protected function invalid($code = 400)
     {
-        $errors = $this->check->errors();
+        $data = $this->check->errors();
 
-        return Response::toJson($errors, $code);
-    }
+        // HTTP 404 means the row does not exists ---
+        if ($code === 404)
+        {
+            $data = 'User does not exists';
+        }
+        // ------------------------------------------
+
+        return Response::toJson($data, $code);
 }
 ```
 
-The per-action methods (`invalidDelete`, `invalidStore`, etc.) delegate to `invalid()` by default. Override `invalid()` once when the error response is the same for all actions.
+All per-action methods (e.g., `invalidDelete`, `invalidStore`, etc.) are delegated to this method by default. Override the `invalid` method once when the error response is the same for all actions.
 
-### `isValid`
+### `isAllowed`
 
-Checks whether the action is valid. The `$data` parameter receives query params or parsed body while the `$id` parameter defaults to `0` when not applicable:
+Checks whether the action is allowed (e.g., checking if the user is authorized):
 
 ``` php
 namespace Acme\Routes;
@@ -907,19 +922,47 @@ class Users extends Route
      *
      * @return boolean
      */
-    protected function isValid($data, $id = 0)
+    protected function isAllowed($data, $id = 0)
     {
         if ($id && ! $this->depot->rowExists($id))
         {
             return false;
         }
 
+        return $this->auth->isAuthorized($data);
+    }
+}
+```
+
+All action methods delegated to this method by default. Override this method if all actions must have the same authorization logic.
+
+### `isDataValid`
+
+Checks whether the payload data is valid for the `store` and `update` actions:
+
+``` php
+namespace Acme\Routes;
+
+use Rougin\Dexter\Route;
+
+class Users extends Route
+{
+    // ...
+
+    /**
+     * @param array<string, mixed> $data
+     * @param integer              $id
+     *
+     * @return boolean
+     */
+    protected function isDataValid($data, $id = 0)
+    {
         return $this->check->valid($data);
     }
 }
 ```
 
-The per-action methods (`isDeleteValid`, `isStoreValid`, etc.) delegate to `isValid()` by default. Override `isValid()` once when the same logic applies to all actions.
+The `isStoreValid` and `isUpdateValid` methods are only delegated to methods `isAllowed` and `isDataValid`.
 
 ## Changelog
 

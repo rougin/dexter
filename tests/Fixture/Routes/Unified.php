@@ -80,7 +80,7 @@ class Unified extends Route
      *
      * @return boolean
      */
-    protected function isValid($data, $id = 0)
+    protected function isAllowed($data, $id = 0)
     {
         $this->data = $data;
 
