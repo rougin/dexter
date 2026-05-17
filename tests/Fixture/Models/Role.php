@@ -29,10 +29,11 @@ class Role extends Model
 
         'id' => 'integer',
         'type' => 'integer',
+
     );
 
     /**
-     * @var string[]
+     * @var array<integer, string>
      */
     protected $fillable = array(
 

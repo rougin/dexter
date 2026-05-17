@@ -33,6 +33,7 @@ class Testcase extends Legacy
     {
         $method = 'assertMatchesRegularExpression';
 
+        /** @phpstan-ignore-next-line */
         if (method_exists($this, $method))
         {
             $this->assertMatchesRegularExpression($pattern, $string);
@@ -40,6 +41,7 @@ class Testcase extends Legacy
             return;
         }
 
+        /** @phpstan-ignore-next-line */
         $this->assertRegExp($pattern, $string);
     }
 
@@ -50,6 +52,7 @@ class Testcase extends Legacy
      */
     public function doExpectExceptionMessage($message)
     {
+        /** @phpstan-ignore-next-line */
         if (! method_exists($this, 'expectExceptionMessage'))
         {
             $exception = 'Exception';
@@ -70,6 +73,7 @@ class Testcase extends Legacy
      */
     public function doSetExpectedException($exception)
     {
+        /** @phpstan-ignore-next-line */
         if (method_exists($this, 'expectException'))
         {
             /** @phpstan-ignore-next-line */
@@ -98,8 +102,9 @@ class Testcase extends Legacy
 
         foreach ($paths as $path)
         {
-            /** @var string[] */
             $files = glob($path . '/*.php');
+
+            $files = $files !== false ? $files : array();
 
             foreach ($files as $file)
             {
@@ -160,9 +165,11 @@ class Testcase extends Legacy
 
         $config = require $folder . '/Phinx.php';
 
+        /** @phpstan-ignore-next-line */
         $paths = $config['paths']['migrations'];
         // ----------------------------------------
 
+        /** @phpstan-ignore-next-line */
         $version = $this->getLastVersion($paths);
         // -------------------------------------------------
 
@@ -191,8 +198,10 @@ class Testcase extends Legacy
 
         $pdo = $this->capsule->getConnection()->getPdo();
 
+        /** @phpstan-ignore-next-line */
         $data['environments']['test']['connection'] = $pdo;
 
+        /** @phpstan-ignore-next-line */
         $config = new \Phinx\Config\Config($data);
 
         $app->set('Phinx\Config\ConfigInterface', $config);

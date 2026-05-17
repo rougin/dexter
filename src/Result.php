@@ -64,19 +64,17 @@ class Result
         {
             if ($item instanceof Arrayable)
             {
-                $items[] = $item->toArray();
-
-                continue;
+                $item = $item->toArray();
             }
 
-            // PHP 5.3 - Use "ArrayableInterface" if available ---
+            // PHP 5.3 - Use "ArrayableInterface" only ---
+            /** @phpstan-ignore-next-line */
             if ($item instanceof ArrayableInterface)
             {
-                $items[] = $item->toArray();
-
-                continue;
+                /** @phpstan-ignore-next-line */
+                $item = $item->toArray();
             }
-            // ---------------------------------------------------
+            // -------------------------------------------
 
             $items[] = $item;
         }

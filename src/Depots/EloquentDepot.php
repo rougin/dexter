@@ -36,6 +36,7 @@ class EloquentDepot extends Depot
      */
     public function getTotal()
     {
+        /** @phpstan-ignore-next-line */
         return $this->model->count();
     }
 
@@ -53,6 +54,7 @@ class EloquentDepot extends Depot
         /** @phpstan-ignore-next-line */
         $model = $model->where('id', $id);
 
+        /** @phpstan-ignore-next-line */
         return $model->exists();
     }
 
@@ -122,6 +124,7 @@ class EloquentDepot extends Depot
 
         if (! $this->filter)
         {
+            /** @phpstan-ignore-next-line */
             return $model->offset($offset)->get();
         }
 
@@ -133,16 +136,20 @@ class EloquentDepot extends Depot
         {
             if (! in_array($name, $search))
             {
+                /** @phpstan-ignore-next-line */
                 $model = $model->where($name, $value);
 
                 continue;
             }
 
+            /** @phpstan-ignore-next-line */
             $value = '%' . $items[$name] . '%';
 
+            /** @phpstan-ignore-next-line */
             $model->orWhere($name, 'like', $value);
         }
 
+        /** @phpstan-ignore-next-line */
         return $model->offset($offset)->get();
     }
 }

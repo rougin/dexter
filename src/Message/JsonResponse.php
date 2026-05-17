@@ -38,10 +38,16 @@ class JsonResponse extends Response
     {
         $stream = parent::getBody();
 
-        /** @var string */
         $encoded = json_encode($this->data);
 
-        $stream->write($encoded);
+        $body = '';
+
+        if ($encoded !== false)
+        {
+            $body = $encoded;
+        }
+
+        $stream->write($body);
 
         return $stream;
     }

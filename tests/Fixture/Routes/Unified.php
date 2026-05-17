@@ -41,14 +41,6 @@ class Unified extends Route
     }
 
     /**
-     * @return array<string, mixed>|null
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
      * @return integer|null
      */
     public function getId()

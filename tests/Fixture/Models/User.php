@@ -27,7 +27,7 @@ class User extends Model
     );
 
     /**
-     * @var string[]
+     * @var array<integer, string>
      */
     protected $fillable = array(
 
