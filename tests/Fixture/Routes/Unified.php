@@ -83,63 +83,6 @@ class Unified extends Route
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    protected function invalidDelete()
-    {
-        $this->code = $code = 404;
-
-        $data = array('data' => 'invalid');
-
-        $data['code'] = $code;
-
-        return new JsonResponse($data, $code);
-    }
-
-    /**
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    protected function invalidShow()
-    {
-        $this->code = $code = 404;
-
-        $data = array('data' => 'invalid');
-
-        $data['code'] = $code;
-
-        return new JsonResponse($data, $code);
-    }
-
-    /**
-     * Checks if the specified item can be deleted.
-     *
-     * @param integer $id
-     *
-     * @return boolean
-     */
-    protected function isDeleteValid($id)
-    {
-        $this->id = $id;
-
-        return $this->valid;
-    }
-
-    /**
-     * Checks if the specified item is allowed to be returned.
-     *
-     * @param integer              $id
-     * @param array<string, mixed> $params
-     *
-     * @return boolean
-     */
-    protected function isShowValid($id, $params)
-    {
-        $this->id = $id;
-
-        return $this->valid;
-    }
-
-    /**
      * @param array<string, mixed> $data
      * @param integer              $id
      *

@@ -131,7 +131,7 @@ class Route
      */
     protected function invalidDelete()
     {
-        return new ErrorResponse(404);
+        return $this->invalid(404);
     }
 
     /**
@@ -151,7 +151,7 @@ class Route
      */
     protected function invalidShow()
     {
-        return new ErrorResponse(404);
+        return $this->invalid(404);
     }
 
     /**
@@ -196,7 +196,7 @@ class Route
      */
     protected function isDeleteValid($id)
     {
-        return true;
+        return $this->isValid(array(), $id);
     }
 
     /**
@@ -221,7 +221,7 @@ class Route
      */
     protected function isShowValid($id, $params)
     {
-        return true;
+        return $this->isValid($params, $id);
     }
 
     /**

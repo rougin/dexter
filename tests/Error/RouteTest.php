@@ -281,6 +281,26 @@ class RouteTest extends Testcase
     /**
      * @return void
      */
+    public function test_is_valid_unified_delete()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->delete(7, $http);
+
+        $expected = 7;
+
+        $actual = $route->getId();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_is_valid_unified_index()
     {
         $http = $this->withHttp();
@@ -292,6 +312,26 @@ class RouteTest extends Testcase
         $route->index($http);
 
         $expected = 0;
+
+        $actual = $route->getId();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_is_valid_unified_show()
+    {
+        $http = $this->withHttp();
+
+        $route = new Unified;
+
+        $route->setAsInvalid();
+
+        $route->show(7, $http);
+
+        $expected = 7;
 
         $actual = $route->getId();
 

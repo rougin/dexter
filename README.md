@@ -865,7 +865,7 @@ When multiple actions share the same validation logic, use the `invalid` and `is
 
 ### `invalid`
 
-Returns an error response for `index`, `store`, and `update` actions. The `$code` parameter defaults to `400`:
+Returns an error response for any action. The `$code` parameter defaults to `400`:
 
 ``` php
 namespace Acme\Routes;
@@ -891,9 +891,11 @@ class Users extends Route
 }
 ```
 
+The per-action methods (`invalidDelete`, `invalidStore`, etc.) delegate to `invalid()` by default. Override `invalid()` once when the error response is the same for all actions.
+
 ### `isValid`
 
-Handles validation for `index`, `store`, and `update` actions. The `$data` parameter receives query params or parsed body; `$id` defaults to `0` when not applicable:
+Checks whether the action is valid. The `$data` parameter receives query params or parsed body while the `$id` parameter defaults to `0` when not applicable:
 
 ``` php
 namespace Acme\Routes;
@@ -921,6 +923,8 @@ class Users extends Route
     }
 }
 ```
+
+The per-action methods (`isDeleteValid`, `isStoreValid`, etc.) delegate to `isValid()` by default. Override `isValid()` once when the same logic applies to all actions.
 
 ## Changelog
 

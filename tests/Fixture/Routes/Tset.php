@@ -27,31 +27,6 @@ class Tset extends Route
     }
 
     /**
-     * Checks if the specified item can be deleted.
-     *
-     * @param integer $id
-     *
-     * @return boolean
-     */
-    protected function isDeleteValid($id)
-    {
-        return $this->valid;
-    }
-
-    /**
-     * Checks if the specified item is allowed to be returned.
-     *
-     * @param integer              $id
-     * @param array<string, mixed> $params
-     *
-     * @return boolean
-     */
-    protected function isShowValid($id, $params)
-    {
-        return $this->valid;
-    }
-
-    /**
      * Checks if the action is valid.
      *
      * @param array<string, mixed> $data
