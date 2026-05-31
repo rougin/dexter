@@ -1,5 +1,16 @@
 parameters:
   level: 10
+  bootstrapFiles:
+    - src/Http/Aliases.php
+    - tests/Fixture/Http/Aliases.php
   paths:
     - src
     - tests
+  excludePaths:
+    analyse:
+      - src/Http/V1
+      - src/Http/V2
+      - tests/Fixture/Http/V1
+      - tests/Fixture/Http/V2
+  ignoreErrors:
+    - '#^Call to function method_exists\(\) with ReflectionMethod and ''hasReturnType'' will always evaluate to true\.$#'

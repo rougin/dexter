@@ -5,9 +5,8 @@ namespace Rougin\Dexter;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use LegacyPHPUnit\TestCase as Legacy;
 use Rougin\Dexter\Fixture\Models\User;
-use Rougin\Slytherin\Container\Container;
-use Rougin\Slytherin\Container\ReflectionContainer;
-use Rougin\Slytherin\Http\ServerRequest;
+use Rougin\Dexter\Fixture\Container;
+use Rougin\Dexter\Fixture\Http\ServerRequest;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 
@@ -223,10 +222,8 @@ class Testcase extends Legacy
 
         // PHP 5.3 - Use "Reflection API" for "Manager" ---
         // as it has different arguments in >= "v0.6.0" ---
-        $reflect = new ReflectionContainer($app);
-
         /** @var \Phinx\Migration\Manager */
-        return $reflect->get('Phinx\Migration\Manager');
+        return $app->get('Phinx\Migration\Manager');
         // ------------------------------------------------
     }
 
@@ -268,7 +265,7 @@ class Testcase extends Legacy
      * @param array<string, mixed> $data
      * @param boolean              $parsed
      *
-     * @return \Rougin\Slytherin\Http\ServerRequest
+     * @return \Psr\Http\Message\ServerRequestInterface
      */
     protected function withHttp($data = array(), $parsed = false)
     {
