@@ -98,6 +98,8 @@ class Container
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * Returns the ReflectionClass for a parameter,
      * compatible with PHP 5.3 through 8.x.
      *
