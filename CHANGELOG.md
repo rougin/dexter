@@ -2,10 +2,10 @@
 
 All notable changes to `Dexter` will be documented in this file.
 
-## 0.2.0 - Unreleased
+## 0.2.0 - 2026-06-01
 
 ### Added
-- Implemented own [PSR-07](https://www.php-fig.org/psr/psr-7/) response
+- Own [PSR-07](https://www.php-fig.org/psr/psr-7/) response
 
 ### Removed
 - `rougin/slytherin` package
