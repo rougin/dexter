@@ -23,28 +23,6 @@ class Testcase extends Legacy
     protected $capsule;
 
     /**
-     * @param string $pattern
-     * @param string $string
-     *
-     * @return void
-     */
-    public function doAssertRegex($pattern, $string)
-    {
-        $method = 'assertMatchesRegularExpression';
-
-        /** @phpstan-ignore-next-line */
-        if (method_exists($this, $method))
-        {
-            $this->assertMatchesRegularExpression($pattern, $string);
-
-            return;
-        }
-
-        /** @phpstan-ignore-next-line */
-        $this->assertRegExp($pattern, $string);
-    }
-
-    /**
      * @param string $message
      *
      * @return void

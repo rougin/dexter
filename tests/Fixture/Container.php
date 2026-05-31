@@ -31,17 +31,15 @@ class Container
             return $this->items[$id];
         }
 
-        /** @phpstan-ignore-next-line */
+        /** @var class-string $id */
         $reflect = new \ReflectionClass($id);
 
-        $constructor = $reflect->getConstructor();
+        $args = array();
 
-        if ($constructor === null)
+        if ($const = $reflect->getConstructor())
         {
-            return $reflect->newInstance();
+            $args = $this->resolve($const);
         }
-
-        $args = $this->resolve($constructor);
 
         return $reflect->newInstanceArgs($args);
     }
@@ -76,34 +74,23 @@ class Container
     /**
      * Resolves constructor parameters via reflection.
      *
-     * @param \ReflectionFunctionAbstract $reflection
+     * @param \ReflectionMethod $reflect
      *
      * @return array<integer, mixed>
      */
-    protected function resolve(\ReflectionFunctionAbstract $reflection)
+    protected function resolve(\ReflectionMethod $reflect)
     {
-        $items = $reflection->getParameters();
+        $items = $reflect->getParameters();
 
         $result = array();
 
         foreach ($items as $key => $param)
         {
-            $class = $this->getParameterClass($param);
-
-            if ($class !== null && $this->has($class->getName()))
+            if ($class = $this->getParam($param))
             {
-                $result[$key] = $this->get($class->getName());
+                $name = $class->getName();
 
-                continue;
-            }
-
-            try
-            {
-                $result[$key] = $param->getDefaultValue();
-            }
-            catch (\ReflectionException $e)
-            {
-                $result[$key] = null;
+                $result[$key] = $this->get($name);
             }
         }
 
@@ -118,29 +105,43 @@ class Container
      *
      * @return \ReflectionClass<object>|null
      */
-    protected function getParameterClass(\ReflectionParameter $param)
+    protected function getParam(\ReflectionParameter $param)
     {
         $php8 = version_compare(PHP_VERSION, '8.0.0', '>=');
 
         if (! $php8)
         {
-            return call_user_func(array($param, 'getClass'));
+            $fn = array($param, 'getClass');
+
+            return call_user_func($fn);
         }
 
-        $type = call_user_func(array($param, 'getType'));
+        $fn = array($param, 'getType');
 
-        /** @phpstan-ignore-next-line */
-        if ($type === null || call_user_func(array($type, 'isBuiltin')))
+        $type = call_user_func($fn);
+
+        $builtIn = true;
+
+        if ($type)
+        {
+            /** @var callable */
+            $fn = array($type, 'isBuiltin');
+
+            /** @var boolean */
+            $builtIn = call_user_func($fn);
+        }
+
+        if ($builtIn)
         {
             return null;
         }
 
         /** @var callable */
-        $method = array($type, 'getName');
+        $class = array($type, 'getName');
 
         /** @var class-string */
-        $name = call_user_func($method);
+        $fn = call_user_func($class);
 
-        return new \ReflectionClass($name);
+        return new \ReflectionClass($fn);
     }
 }
