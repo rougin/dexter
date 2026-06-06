@@ -2,6 +2,11 @@
 
 All notable changes to `Dexter` will be documented in this file.
 
+## 0.2.1 - 2026-06-06
+
+### Changed
+- Moved `illuminate/database` to `require-dev`
+
 ## 0.2.0 - 2026-06-01
 
 ### Added
