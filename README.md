@@ -388,6 +388,194 @@ class UserDepot extends Depot
 
 If the logic for the `update` method is not defined, it will throw a `LogicError`.
 
+## Using `EloquentDepot`
+
+The `EloquentDepot` class provides a pre-built implementation of `Depot` that delegates all CRUD operations to an [Eloquent Model](https://laravel.com/docs/eloquent):
+
+``` php
+namespace Acme\Depots;
+
+use Acme\Models\User;
+use Illuminate\Database\Eloquent\Model;
+use Rougin\Dexter\Depots\EloquentDepot;
+
+class UserDepot extends EloquentDepot
+{
+    /**
+     * @param \Acme\Models\User $user
+     */
+    public function __construct(User $user)
+    {
+        $this->model = $user;
+    }
+}
+```
+
+Once defined, all CRUD methods are available out of the box:
+
+``` php
+// index.php
+
+use Acme\Depots\UserDepot;
+use Acme\Models\User;
+
+$depot = new UserDepot(new User);
+
+// Create a new item ---------------
+$data = array('name' => 'John Doe');
+
+$data['email'] = 'john@example.com';
+
+/** @var \Acme\Models\User */
+$item = $depot->create($data);
+// ---------------------------------
+
+// Find an item by its ID ---
+/** @var \Acme\Models\User */
+$item = $depot->find(1);
+// --------------------------
+
+// Paginate through items -------
+/** @var \Rougin\Dexter\Result */
+$result = $depot->get(1, 10);
+
+/** @var array<string, mixed> */
+$items = $result->toArray();
+// ------------------------------
+
+// Update an existing item ---------
+$data = array('name' => 'Jane Doe');
+
+$depot->update(1, $data);
+// ---------------------------------
+```
+
+> [!NOTE]
+> The `EloquentDepot` class requires the `illuminate/database` package, which should be installed as a dependency:
+>
+> ``` bash
+> $ composer require illuminate/database
+> ```
+
+## Filtering results
+
+The `get` method supports filtering through the `withFilter` method. Use the `Filter` class to add `WHERE` clauses to the paginated query:
+
+``` php
+// index.php
+
+use Acme\Depots\UserDepot;
+use Acme\Models\User;
+use Rougin\Dexter\Filter;
+
+$depot = new UserDepot(new User);
+
+// Filter by exact matches ---------
+$filter = new Filter;
+
+$filter->setInt('age', 25);
+
+$filter->setStr('status', 'active');
+
+$depot->withFilter($filter);
+// ---------------------------------
+
+/** @var \Rougin\Dexter\Result */
+$result = $depot->get(1, 10);
+```
+
+The specified filters can be used as `as*` method in `getItems`:
+
+``` php
+namespace Acme\Depots;
+
+use Rougin\Dexter\Depot;
+
+class UserDepot extends Depot
+{
+    // ...
+
+    /**
+     * @param integer $page
+     * @param integer $limit
+     *
+     * @return mixed[]
+     */
+    protected function getItems($page, $limit)
+    {
+        $status = $this->filter->asTrueStr('status');
+
+        $model = $this->user;
+
+        $model = $model->where('status', $status);
+
+        return $model->get();
+    }
+}
+```
+
+To identify filter fields as searchable (using `LIKE`), use the `withSearch` method:
+
+``` php
+// index.php
+
+use Acme\Depots\UserDepot;
+use Acme\Models\User;
+use Rougin\Dexter\Filter;
+
+$depot = new UserDepot(new User);
+
+// Search by name or email -----------------
+$filter = new Filter;
+
+$filter->setStr('name', 'John');
+
+$filter->setStr('email', 'john@');
+
+$filter->withSearch(array('name', 'email'));
+
+$depot->withFilter($filter);
+// -----------------------------------------
+
+/** @var \Rougin\Dexter\Result */
+$result = $depot->get(1, 10);
+```
+
+The searchable fields can be used in the depot with `getSearchKeys` method:
+
+``` php
+namespace Acme\Depots;
+
+use Rougin\Dexter\Depot;
+
+class UserDepot extends Depot
+{
+    // ...
+
+    /**
+     * @param integer $page
+     * @param integer $limit
+     *
+     * @return mixed[]
+     */
+    protected function getItems($page, $limit)
+    {
+        $keys = $this->filter->getSearchKeys();
+
+        $model = $this->user;
+
+        foreach ($keys as $key)
+        {
+            $value = '%' . $this->filter->asTrueStr($key) . '%';
+
+            $model = $model->where($key, 'like', $value);
+        }
+
+        return $model->get();
+    }
+}
+```
+
 ## Using `Route`
 
 The `Route` class in `Dexter` is similar to the previously discussed `Depot` class. While the `Depot` class conforms to the [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete), the `Route` class closely follows the [RESTful software architecture style](https://en.wikipedia.org/wiki/REST) and uses the [PSR-07](https://www.php-fig.org/psr/psr-7/) standard for standardization of its HTTP responses:
